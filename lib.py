@@ -1,6 +1,6 @@
 import numpy as np
-import cv2
 import math
+import cv2
 import RPi.GPIO as GPIO
 
 def out(img):
@@ -44,14 +44,14 @@ class img_module:
 # set pin numbers
 L_pwm = 12
 R_pwm = 13
-frequency = 50 # in Hz  
+frequency =1000 # in Hz  
 L_relay_0 = 23 
 L_relay_1 = 24
 R_relay_0 = 27 
 R_relay_1 = 22
 
 def setup():
-    GPIO.setmode(GPIO.BOARD)
+    GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
     GPIO.setup(L_relay_0, GPIO.OUT)
     GPIO.setup(R_relay_0, GPIO.OUT)
@@ -61,8 +61,8 @@ def setup():
     GPIO.setup(R_pwm, GPIO.OUT)
     L = GPIO.PWM(L_pwm,frequency)
     R = GPIO.PWM(R_pwm,frequency)
-    L.start(0)
-    R.start(0)
+    L.start(0.2)
+    R.start(0.2)
     return (L,R)
 
 (L,R) = setup();
@@ -92,10 +92,10 @@ def R_reverse():
     GPIO.output(R_relay_1, GPIO.LOW)
     
 def L_speed(speed): # speed in percentage (0~100)
-    L.changeDutyCycle(speed)
+    L.ChangeDutyCycle(speed)
     
 def R_speed(speed): # speed in percentage (0~100)
-    R.changeDutyCycle(speed)
+    R.ChangeDutyCycle(speed)
     
 def move_left():
     L_reverse()
