@@ -15,10 +15,7 @@ import time
 import RPi.GPIO as GPIO
 from picamera.array import PiRGBArray
 from picamera import PiCamera
-<<<<<<< HEAD
-=======
-import time
->>>>>>> 67d2c5851159e269e38723e314120068db8b9600
+
 
 def out(img): #to display a image
     cv2.imshow("img",img)
@@ -31,12 +28,15 @@ class img_module:
     def read_img_pi(self): # to read image from rpi
         self.cam.capture(self.raw,format="bgr")
         image = self.raw.array
+        self.raw.truncate(0)
+        self.img = image
         return image;
     def __init__(self): #init parameters
         self.angle_tolerance = 0.2
         self.cap = cv2.VideoCapture(0)
         self.cam = PiCamera()
-        self.rawCam = rawRGBArray(self.cam)
+        self.cam.resolution = (640,480)
+        self.raw = PiRGBArray(self.cam)
         time.sleep(0.1) # to allow camera init 
         
     def flush(self): #flush in laptop // where VideoCapture is enabled
@@ -48,13 +48,14 @@ class img_module:
         self.img = cv2.fastNlMeansDenoisingColored(img)
         
     def read_pi(self): #rpi support for videoCapture not working
-        read_img_pi()
+        self.read_img_pi()
         self.img = read_img_pi()
         self.img = cv2.fastNlMeansDenoisingColoured(self.img)
         
     def get_img_target(self): #to detect a ball and go near it
         gray = cv2.cvtColor(self.img,cv2.COLOR_BGR2GRAY)
-        circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,1,20,param1=50,param2=30,minRadius=0,maxRadius=0)
+        circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,1,20\
+                                   ,param1=50,param2=30,minRadius=20,maxRadius=80)
         circles = np.uint16(np.around(circles))
         try:
             i = circles[0,0]
@@ -83,11 +84,7 @@ pwm 1 (bcm 13) and bcm 6 control right motor
 common ground at pin 34
 PiCam connected and enabled
 
-<<<<<<< HEAD
 Pin numbers provided below is the bcm pin number
-=======
-Pin numbers provided below is the physical pin number not the bcm pin number
->>>>>>> 67d2c5851159e269e38723e314120068db8b9600
 
 '''    
     
@@ -95,13 +92,8 @@ Pin numbers provided below is the physical pin number not the bcm pin number
 L_pwm = 12
 R_pwm = 13
 frequency = 100 # in Hz  
-<<<<<<< HEAD
 L_dir = 5  # direction
 R_dir = 6  #direction
-=======
-L_dir = 23  # direction
-R_dir = 27  #direction
->>>>>>> 67d2c5851159e269e38723e314120068db8b9600
 fast = 40 #fast speed duty cycle
 slow = 20 #slow speed duty cycle
 
@@ -113,11 +105,8 @@ we tried to use a separate relay circuit but the bot can only move if the voltag
 Rpi however only supplies 3.3V. 
 So we use a L298 module as it is more sensitive the original controls have been deprecated and provided in the comments below
 
-<<<<<<< HEAD
-forward ==> dir=0 and duty cycle given
-reverse ==> dir=1 and duty cycle = 100-given ( (1,1) setting is halt)
-=======
->>>>>>> 67d2c5851159e269e38723e314120068db8b9600
+reverse ==> dir=0 and duty cycle given
+forward ==> dir=1 and duty cycle = 100-given ( (1,1) setting is halt)
 
 '''
 
