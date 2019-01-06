@@ -15,10 +15,6 @@ import time
 import RPi.GPIO as GPIO
 from picamera.array import PiRGBArray
 from picamera import PiCamera
-<<<<<<< HEAD
-=======
-import time
->>>>>>> 67d2c5851159e269e38723e314120068db8b9600
 
 def out(img): #to display a image
     cv2.imshow("img",img)
@@ -82,12 +78,8 @@ pwm 0 (bcm 12) and bcm 5 control left motor
 pwm 1 (bcm 13) and bcm 6 control right motor
 common ground at pin 34
 PiCam connected and enabled
-
-<<<<<<< HEAD
 Pin numbers provided below is the bcm pin number
-=======
-Pin numbers provided below is the physical pin number not the bcm pin number
->>>>>>> 67d2c5851159e269e38723e314120068db8b9600
+
 
 '''    
     
@@ -95,13 +87,8 @@ Pin numbers provided below is the physical pin number not the bcm pin number
 L_pwm = 12
 R_pwm = 13
 frequency = 100 # in Hz  
-<<<<<<< HEAD
 L_dir = 5  # direction
 R_dir = 6  #direction
-=======
-L_dir = 23  # direction
-R_dir = 27  #direction
->>>>>>> 67d2c5851159e269e38723e314120068db8b9600
 fast = 40 #fast speed duty cycle
 slow = 20 #slow speed duty cycle
 
@@ -113,11 +100,6 @@ we tried to use a separate relay circuit but the bot can only move if the voltag
 Rpi however only supplies 3.3V. 
 So we use a L298 module as it is more sensitive the original controls have been deprecated and provided in the comments below
 
-<<<<<<< HEAD
-forward ==> dir=0 and duty cycle given
-reverse ==> dir=1 and duty cycle = 100-given ( (1,1) setting is halt)
-=======
->>>>>>> 67d2c5851159e269e38723e314120068db8b9600
 
 '''
 
@@ -132,6 +114,8 @@ def setup():
     R = GPIO.PWM(R_pwm,frequency)
     L.start(0)
     R.start(0)
+    GPIO.output(L_dir, GPIO.LOW)
+    GPIO.output(R_dir, GPIO.LOW)
     return (L,R)
 
 (L,R) = setup()
