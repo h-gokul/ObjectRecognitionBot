@@ -49,8 +49,8 @@ class img_module:
         
     def read_pi(self): #rpi support for videoCapture not working
         self.read_img_pi()
-        self.img = read_img_pi()
-        self.img = cv2.fastNlMeansDenoisingColoured(self.img)
+        self.img = self.read_img_pi()
+#        self.img = cv2.fastNlMeansDenoisingColoured(self.img)
         
     def get_img_target(self): #to detect a ball and go near it
         gray = cv2.cvtColor(self.img,cv2.COLOR_BGR2GRAY)
@@ -94,8 +94,8 @@ R_pwm = 13
 frequency = 100 # in Hz  
 L_dir = 5  # direction
 R_dir = 6  #direction
-fast = 40 #fast speed duty cycle
-slow = 20 #slow speed duty cycle
+fast = 20 #fast speed duty cycle
+slow = 10 #slow speed duty cycle
 
 '''
 Logic for actuation:
@@ -270,4 +270,5 @@ def stop():
     L_stop()
     R_stop()
 '''
+
 
