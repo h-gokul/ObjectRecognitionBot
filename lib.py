@@ -159,6 +159,13 @@ def fast_right_reverse():
 def fast_right_forward():
     R.ChangeDutyCycle(100 - fast)
     GPIO.output(R_dir, GPIO.HIGH)
+    
+def stop():
+    GPIO.output(L_dir, GPIO.LOW)
+    GPIO.output(R_dir, GPIO.LOW)
+    R.ChangeDutyCycle(0)
+    L.ChangeDutyCycle(0)
+    
 
 
 # Higher level calls to be used in the driver code
@@ -187,6 +194,7 @@ def glide_right():
     fast_left_forward()
     slow_right_forward()
     
+
 
 
 '''
