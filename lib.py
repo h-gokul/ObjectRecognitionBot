@@ -83,8 +83,8 @@ pwm 0 (bcm 12) and bcm 5 control left motor
 pwm 1 (bcm 13) and bcm 6 control right motor
 common ground at pin 34
 PiCam connected and enabled
-
 Pin numbers provided below is the bcm pin number
+
 
 '''    
     
@@ -107,7 +107,6 @@ So we use a L298 module as it is more sensitive the original controls have been 
 
 reverse ==> dir=0 and duty cycle given
 forward ==> dir=1 and duty cycle = 100-given ( (1,1) setting is halt)
-
 '''
 
 def setup():
@@ -121,6 +120,8 @@ def setup():
     R = GPIO.PWM(R_pwm,frequency)
     L.start(0)
     R.start(0)
+    GPIO.output(L_dir, GPIO.LOW)
+    GPIO.output(R_dir, GPIO.LOW)
     return (L,R)
 
 (L,R) = setup()
