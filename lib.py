@@ -122,35 +122,35 @@ def setup():
 
 # Lower level controls for actuation
 
-def slow_left_forward():
+def slow_left_reverse():
     L .ChangeDutyCycle(slow)
     GPIO.output(L_dir, GPIO.LOW)
 
-def slow_left_reverse():
+def slow_left_forward():
     L .ChangeDutyCycle(100 - slow)
     GPIO.output(L_dir, GPIO.HIGH)
 
-def fast_left_forward():
+def fast_left_reverse():
     L .ChangeDutyCycle(fast)
     GPIO.output(L_dir, GPIO.LOW)
 
-def fast_left_reverse():
+def fast_left_forward():
     L .ChangeDutyCycle(100 - fast)
     GPIO.output(L_dir, GPIO.HIGH)
     
-def slow_right_forward():
+def slow_right_reverse():
     R .ChangeDutyCycle(slow)
     GPIO.output(R_dir, GPIO.LOW)
 
-def slow_right_reverse():
+def slow_right_forward():
     R .ChangeDutyCycle(100 - slow)
     GPIO.output(R_dir, GPIO.HIGH)
 
-def fast_right_forward():
+def fast_right_reverse():
     R.ChangeDutyCycle(fast)
     GPIO.output(R_dir, GPIO.LOW)
 
-def fast_right_reverse():
+def fast_right_forward():
     R.ChangeDutyCycle(100 - fast)
     GPIO.output(R_dir, GPIO.HIGH)
 
