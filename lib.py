@@ -55,7 +55,9 @@ class img_module:
     def get_img_target(self): #to detect a ball and go near it
         gray = cv2.cvtColor(self.img,cv2.COLOR_BGR2GRAY)
         circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,1,20\
-                                   ,param1=50,param2=30,minRadius=20,maxRadius=80)
+                                   ,param1=50,param2=30,minRadius=20,maxRadius=300)
+        if circles is None:
+            return None,None,None,None
         circles = np.uint16(np.around(circles))
         try:
             i = circles[0,0]
@@ -66,7 +68,7 @@ class img_module:
         ver = i[1] # shorter side
         copy = self.img.copy()
         cv2.circle(copy,(i[0],i[1]),i[2],(0,255,0),2)
-        dist = (((320 - hor)*(320 - hor)) + ((480-ver)*(480-ver)))**0.5
+        dist = (((320 - hor)*(320 - hor)) + ((480-ver-i[2])*(480-ver-i[2])))**0.5
         angle = math.atan((320-hor)/(480-ver)) # -ve if object is left ||  +ve if right
         cv2.circle(copy,(320,480),2,(0,255,0),-1)
         out(copy)
@@ -94,8 +96,8 @@ R_pwm = 13
 frequency = 100 # in Hz  
 L_dir = 5  # direction
 R_dir = 6  #direction
-fast = 20 #fast speed duty cycle
-slow = 10 #slow speed duty cycle
+fast = (16,14) #fast speed duty cycle
+slow = (12,10) #slow speed duty cycle
 
 '''
 Logic for actuation:
@@ -129,35 +131,35 @@ def setup():
 # Lower level controls for actuation
 
 def slow_left_reverse():
-    L .ChangeDutyCycle(slow)
+    L .ChangeDutyCycle(slow[0])
     GPIO.output(L_dir, GPIO.LOW)
 
 def slow_left_forward():
-    L .ChangeDutyCycle(100 - slow)
+    L .ChangeDutyCycle(100 - slow[1])
     GPIO.output(L_dir, GPIO.HIGH)
 
 def fast_left_reverse():
-    L .ChangeDutyCycle(fast)
+    L .ChangeDutyCycle(fast[0])
     GPIO.output(L_dir, GPIO.LOW)
 
 def fast_left_forward():
-    L .ChangeDutyCycle(100 - fast)
+    L .ChangeDutyCycle(100 - fast[1])
     GPIO.output(L_dir, GPIO.HIGH)
     
 def slow_right_reverse():
-    R .ChangeDutyCycle(slow)
+    R .ChangeDutyCycle(slow[1])
     GPIO.output(R_dir, GPIO.LOW)
 
 def slow_right_forward():
-    R .ChangeDutyCycle(100 - slow)
+    R .ChangeDutyCycle(100 - slow[0])
     GPIO.output(R_dir, GPIO.HIGH)
 
 def fast_right_reverse():
-    R.ChangeDutyCycle(fast)
+    R.ChangeDutyCycle(fast[1])
     GPIO.output(R_dir, GPIO.LOW)
 
 def fast_right_forward():
-    R.ChangeDutyCycle(100 - fast)
+    R.ChangeDutyCycle(100 - fast[0])
     GPIO.output(R_dir, GPIO.HIGH)
     
 def stop():
