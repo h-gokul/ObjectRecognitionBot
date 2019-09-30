@@ -1,4 +1,5 @@
-A mono vision based Simultaneous Localization and Mapping Project.
+# Object Detection Bot
+A mono vision based terrestrial bot.
 #### Device Recommended : Raspberry Pi 3 Model B+
 #### Software package requirements : 
 - opencv 
