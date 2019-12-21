@@ -1,5 +1,5 @@
 # Object Detection Bot
-A mono vision based terrestrial bot designed for deployment of ORB SLAM algorithm, courtesy of Gautham Ponnu & Jacob George who implemented this project for their MEngg Design Project @ Cornell. Find their project report [here](https://courses.ece.cornell.edu/ece6930/ECE6930_Spring16_Final_MEng_Reports/SLAM/Real-time%20ROSberryPi%20SLAM%20Robot.pdf).
+A mono vision based terrestrial bot designed for deployment of ORB SLAM algorithm, courtesy of Gautham Ponnu & Jacob George who implemented this project for their MEngg Design [Project](https://github.com/gapo/SLAMberry) @ Cornell. Find their project report [here](https://courses.ece.cornell.edu/ece6930/ECE6930_Spring16_Final_MEng_Reports/SLAM/Real-time%20ROSberryPi%20SLAM%20Robot.pdf).
 
 #### Device Recommended : Raspberry Pi 3 Model B+
 #### Software package requirements : 
